@@ -1,7 +1,3 @@
--- require another lua file, containing our custom log() method
--- doesn't work in windows currently due to Steam messing with the working directory
--- require("mods.sample_mod.modules.utility")
-
 -- register is called first to register your mod with the game
 -- https://wiki.apico.buzz/wiki/Modding_API#register()
 function register()
@@ -22,7 +18,7 @@ function init()
   api_set_devmode(true)
 
   -- log to the console
-  log("init", "Hello World!")
+  api_log("init", "Hello World!")
 
   -- define a custom item
   api_define_item({
@@ -53,6 +49,6 @@ end
 function clock()
   
   -- log the clock time every second
-  log("clock", api_get_time()["clock"])
+  api_log("clock", api_get_time()["clock"])
   
 end
