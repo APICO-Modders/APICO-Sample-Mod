@@ -1,5 +1,6 @@
 -- require another lua file, containing our custom log() method
-require("mods.sample_mod.modules.utility")
+-- doesn't work in windows currently due to Steam messing with the working directory
+-- require("mods.sample_mod.modules.utility")
 
 -- register is called first to register your mod with the game
 -- https://wiki.apico.buzz/wiki/Modding_API#register()
