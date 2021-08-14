@@ -1,3 +1,6 @@
+-- require another lua file, containing our custom log() method
+require("mods.sample_mod.modules.utility")
+
 function register()
   -- register our mod name and the hooks we want
   return {
@@ -7,12 +10,14 @@ function register()
 end
 
 function init() 
+
   -- init the mod
-  api_create_log("init", "Hello World!")
+  log("init", "Hello World!")
+
   return "Success"
 end
 
 function clock()
   -- log the clock time every second
-  api_create_log("clock", api_get_time()["clock"])
+  log("clock", api_get_time()["clock"])
 end
