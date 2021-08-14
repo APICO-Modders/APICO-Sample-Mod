@@ -1,0 +1,3 @@
+Sprites are loaded on a relative path from the mod root.
+
+In this example we have a sprites folder to make things tidy, which means we can load our sprites from "sprites/*"
