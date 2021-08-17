@@ -1,3 +1,7 @@
+-- I would recommend keeping your mod_id in a variable to access with create() methods and stuff
+-- there's a bunch of methods that prepend your mod_id to the name/oids so it comes in handy!
+MOD_NAME = "sample_mod"
+
 -- register is called first to register your mod with the game
 -- https://wiki.apico.buzz/wiki/Modding_API#register()
 function register()
@@ -5,7 +9,7 @@ function register()
   -- you can see a full list of hooks here:
   -- https://wiki.apico.buzz/wiki/Modding_API#Hooks
   return {
-    name = "sample_mod",
+    name = MOD_NAME,
     hooks = {"clock"}
   }
 end
@@ -60,7 +64,7 @@ function define_item()
     { item = "waterproof", amount = 20 },
     { item = "glue", amount = 5 }
   }
-  res = api_define_recipe("tools", "sample_mod_cool_axe", recipe, 1)
+  res = api_define_recipe("tools", MOD_NAME .. "_cool_axe", recipe, 1)
 
 end
 
