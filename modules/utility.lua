@@ -130,7 +130,10 @@ function define_bee()
   api_define_bee(bee_def, 
     "sprites/bee_item.png", "sprites/bee_shiny.png", 
     "sprites/bee_hd.png",
-    {r=100, g=100, b=100}
+    {r=100, g=100, b=100},
+    "sprites/bee_mag.png",
+    "My Magazine Headline!",
+    "My magazine body text!"
   );
   -- add a new mutation for our new bee
   api_define_bee_recipe("dream", "rocky", "nightcrawler", "mutation_chance")
