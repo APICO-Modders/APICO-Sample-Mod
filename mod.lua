@@ -1,4 +1,4 @@
--- This Sample Mod is for use with Beeta 1.3+
+-- This is the Sample Mod!
 
 -- I would recommend keeping your mod_id in a variable to access with create() methods and stuff
 -- there's a bunch of methods that prepend your mod_id to the name/oids so it comes in handy!
@@ -16,8 +16,8 @@ function register()
   -- https://wiki.apico.buzz/wiki/Modding_API#Hooks
   return {
     name = MOD_NAME,
-    hooks = {"ready", "gui", "click"}, -- subscribe to these 3 hooks so they're called
-    modules = {"utility"} -- load /modules/utility.lua
+    hooks = {"ready", "gui", "click"}, -- subscribe to hooks we want so they're called
+    modules = {"utility"} -- load other modules we need, in this case "/modules/utility.lua"
   }
 end
 
@@ -26,7 +26,7 @@ end
 function init() 
 
   -- turn on devmode
-  -- api_set_devmode(true)
+  api_set_devmode(true)
 
   -- log to the console
   log("init", "Hello World!")
@@ -48,6 +48,9 @@ end
 -- ready is called once all mods are ready and once the world has loaded any undefined instances from mods in the save
 -- https://wiki.apico.buzz/wiki/Modding_API#ready()
 function ready()
+
+  -- we're going to get the mod "data" file to see if this is the first time the mod has loaded
+  api_get_data()
 
   -- if we don't have a book obj create one
   -- once we create one and the player saves the game, next time we won't need/want to make a new one
@@ -76,12 +79,43 @@ function ready()
 end
 
 
+-- data is called any time we run api_get_data() or api_set_data()
+-- https://wiki.apico.buzz/wiki/Modding_API#data()
+function data(ev, data)
+  
+  -- for data load, data is nil if we have no data.json file existing
+  -- you can have one in your mod root by default, or just make one 
+  -- when you call api_set_data()
+  if (ev == "LOAD" and data ~= nil) then
+    -- worlds dont have unique identifiers so we can check with the player name
+    name = api_gp(api_get_player_instance(), "name")
+    if data["players"][name] == nil then
+      -- this is the first time we have loaded this mod for this player
+      -- we can use this to do something, i.e. spawn an object
+      api_log("data", "First time!")
+      -- once done we set the data value and update the data for next time
+      data["players"][name] = true
+      api_set_data(data)
+    else
+      -- this isn't our first rodeo!!
+      api_log("data", "Loaded before.")
+    end
+  end
+
+  -- check save was successful
+  if (ev == "SAVE" and data ~= nil) then
+    -- save was successful!
+  end
+
+end
+
+
 -- gui is called each draw cycle. anything drawn in this hook will 
 -- https://wiki.apico.buzz/wiki/Modding_API#click()
 function gui()
 
   -- draw book if open
-  if api_gp(MY_BOOK_OBJ, "open") == true then
+  --[[if api_gp(MY_BOOK_OBJ, "open") == true then
     -- get screen pos
     game = api_get_game_size()
     cam = api_get_cam()
@@ -89,7 +123,7 @@ function gui()
     api_draw_rectangle(0, 0, game["width"], game["height"], "BLACK", false, 0.9)
     -- redraw menu on gui layer
     book_draw(MY_BOOK_MENU)
-  end
+  end]]--
 
 end
 
@@ -101,6 +135,7 @@ function click(button, click_type)
   -- check if we right click out book item to open the book
   if button == "RIGHT" and click_type == "PRESSED" then
 
+    -- fake opening a book by opening our fake menu object when the book is right clicked in a slot
     highlighted = api_get_highlighted("slot")
     if highlighted ~= nil then
       slot = api_get_slot_inst(highlighted)
