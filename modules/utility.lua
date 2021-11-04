@@ -66,6 +66,14 @@ function define_book()
     define = "book_define", -- defined below as a function
     draw = "book_draw" -- defined below as a function
   })
+  -- finally, this will add our book to the library bar on the bottom
+  api_library_add_book("my_sweet_book", "book_open", "sprites/book_button.png")
+end
+
+
+-- function called when clicking the library book button
+function book_open()
+  api_toggle_menu(MY_BOOK_MENU, true)
 end
 
 
