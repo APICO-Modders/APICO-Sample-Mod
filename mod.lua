@@ -115,7 +115,7 @@ end
 function gui()
 
   -- draw book if open
-  --[[if api_gp(MY_BOOK_OBJ, "open") == true then
+  if api_gp(MY_BOOK_OBJ, "open") == true then
     -- get screen pos
     game = api_get_game_size()
     cam = api_get_cam()
@@ -123,7 +123,7 @@ function gui()
     api_draw_rectangle(0, 0, game["width"], game["height"], "BLACK", false, 0.9)
     -- redraw menu on gui layer
     book_draw(MY_BOOK_MENU)
-  end]]--
+  end
 
 end
 
