@@ -29,7 +29,7 @@ function init()
   api_set_devmode(true)
 
   -- log to the console
-  log("init", "Hello World!")
+  api_log("init", "Hello World!")
 
   -- define new stuff (see modules/utility.lua)
   -- define a new axe item and add it to the workbench
