@@ -37,6 +37,14 @@ function init()
 
   -- define a new item, in this case an axe
   define_item()
+  -- define our mod workbench labels (for our item's recipe)
+  api_define_workbench("Sample Mod", {
+    t1 = "Sample Tab 1",
+    t2 = "Sample Tab 2",
+    t3 = "Sample Tab 3",
+    t4 = "Sample Tab 4",
+    t5 = "Sample Tab 5",
+  })
   -- define a new object that can be sat on like a bench
   define_bench()
   -- define a new object that can be slept in like a bed
