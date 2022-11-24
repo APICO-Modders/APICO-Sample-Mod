@@ -164,3 +164,23 @@ function mutation_chance()
   end
   return false;
 end
+
+
+-------------------
+--- NPC SCRIPTS ---
+-------------------
+
+-- function used with the dialogue check 
+-- by default "A" will always be selected
+-- using this function you can return the other dialogue tree keys to return 
+-- based on certain conditions, i.e. item discovery or progress
+function npc69_dialogue_check()
+
+  -- in this example, if the player has found the glossypearl
+  -- we will add dialogue section "B" to the option list players see
+  if api_check_discovery("glossypearl") then
+    return {'B'}
+  end
+  return {}
+
+end

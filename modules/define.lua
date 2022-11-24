@@ -221,6 +221,45 @@ function define_bee()
 end
 
 
+------------------------
+--- DEFINE BUTTERFLY ---
+------------------------
+
+-- used to define a new type of butterfly
+-- https://wiki.apico.buzz/wiki/Modding_API#api_define_butterfly()
+-- once created you can spawn the bee with /gimme butterfly.{id} 
+function define_butterfly()
+
+  -- set up our butterfly definition 
+  butt_def = {
+    id = "flutterby",
+    title = "Flutterby",
+    latin = "Fluttery Buttery",
+    hint = "Really likes green flowers but during a wet dawn!",
+    desc = "This is just a cool damn butterfly",
+    biome = "forest",
+    lifespan = 120,
+    behaviour = "Crepuscular",
+    climate = "Temperate",
+    rainlover = true,
+    snowlover = false,
+    flora = "flora1",
+    flowers = {"flower4", "flower17"},
+    chance = 50,
+    named = true
+  }
+  
+  -- actually define the butterfly 
+  api_define_butterfly(butt_def, 
+    "sprites/butterfly/butterfly_item.png", "sprites/butterfly/butterfly_golden.png", 
+    "sprites/butterfly/caterpiller_item.png",
+    "sprites/butterfly/butterfly_hd.png",
+    {r=100, g=100, b=100}
+  );
+
+end
+
+
 -----------------------
 --- DEFINE RECYCLER ---
 -----------------------
@@ -231,7 +270,7 @@ end
 function define_recycler()
 
   -- define new menu object as normal
-  api_define_menu_object({
+  api_define_menu_object2({
     id = "recycle_bin",
     name = "Recycle Bin",
     category = "Tools",
@@ -275,9 +314,36 @@ end
 ------------------
 
 -- define a new npc
--- https://wiki.apico.buzz/wiki/Modding_API#api_define_npc()
+-- https://wiki.apico.buzz/wiki/Modding_API#api_define_npc2()
 -- an npc is a special type of menu object that has a dialogue window + a shop menu
 function define_npc()
+
+  -- setup dialogue tree
+  dialogue = {}
+  dialogue["A"] = {
+    P = "I am a prompt for dialogue A!",
+    D = {
+      "I am the first paragraph for dialogue A",
+      "All NPCs need at least a dialogue A or they break",
+      "This is a chance for you to introduce an NPC",
+      "Goodbye!"
+    },
+    A = {
+      "$action01", -- Next
+      "$action01", -- Next
+      "$action01", -- Next
+      "$action49" -- Back
+    }
+  }
+  dialogue["B"] = {
+    P = "I am a new prompt for dialogue B!",
+    D = {
+      "Well done on getting a glossy pearl!"
+    },
+    A = {
+      "$action49" -- Back
+    }
+  }
 
   --set npc definition
   npc_def = {
@@ -287,26 +353,24 @@ function define_npc()
     tooltip = "Wassup pal?",
     shop = true,
     walking = true,
-    stock = {"bee:nightcrawler", "sample_mod_cool_axe", "sample_mod_test_bed", "sample_mod_test_bench", "sample_mod_test_light", "flower14", "wall17", "sample_mod_recycle_bin", "log", "log"}, -- max 10
-    specials = {"log", "log", "log"}, -- must be 3
-    dialogue = {
-      "Wot ya mean av I gots anything other than logs to sell??",
-      "Wot a stoopid question hoomie"
-    },
+    stock = {"bee:nightcrawler", "sample_mod_cool_axe", "sample_mod_test_bed", "sample_mod_test_bench", "sample_mod_test_light", "flower14", "wall17", "sample_mod_recycle_bin", "log", "log"}, -- max 12
+    specials = {"log", "log", "log"}, -- min 3
+    dialogue = dialogue,
     greeting = "Alright pal ow ya gettin' on"
   }
 
-  -- define npc
-  api_define_npc(npc_def,
-    "sprites/npc/npc_standing.png",
-    "sprites/npc/npc_standing_h.png",
-    "sprites/npc/npc_walking.png",
-    "sprites/npc/npc_walking_h.png",
-    "sprites/npc/npc_head.png",
-    "sprites/npc/npc_bust.png",
-    "sprites/npc/npc_item.png",
-    "sprites/npc/npc_dialogue_menu.png",
-    "sprites/npc/npc_shop_menu.png"
+  -- define actual npc, damn thats a lot of sprites
+  api_define_npc2(npc_def,
+    "sprites/npc2/npc_standing.png",
+    "sprites/npc2/npc_standing_h.png",
+    "sprites/npc2/npc_walking.png",
+    "sprites/npc2/npc_walking_h.png",
+    "sprites/npc2/npc_head.png",
+    "sprites/npc2/npc_bust.png",
+    "sprites/npc2/npc_item.png",
+    "sprites/npc2/npc_dialogue_bg.png",
+    "sprites/npc2/npc_shop_bg.png",
+    "npc69_dialogue_check" -- defined in "scripts.lua" as a function
   )
 
 end

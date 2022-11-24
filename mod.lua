@@ -57,6 +57,8 @@ function init()
   define_flower()
   -- define a new type of bee
   define_bee()
+  -- define a new type of butterfly
+  define_butterfly()
   -- define a new NPC
   define_npc()
   -- define a new menu object, in this case a "recycler" that turns items into seeds 
