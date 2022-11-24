@@ -265,7 +265,7 @@ end
 -----------------------
 
 -- define a menu object, in this case a "recycler" machine
--- https://wiki.apico.buzz/wiki/Modding_API#api_define_menu_object()
+-- https://wiki.apico.buzz/wiki/Modding_API#api_define_menu_object2()
 -- menu objects are items you can place down and then click on to open an actual menu
 function define_recycler()
 
